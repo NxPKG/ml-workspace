@@ -1,0 +1,15 @@
+FROM node:16
+
+# Ensure /opt/conda/bin directory exists if you still need it
+RUN mkdir -p /opt/conda/bin
+
+# Remove conda binaries if they exist and link the new Node.js binaries
+RUN rm -f /opt/conda/bin/node && ln -s /usr/local/bin/node /opt/conda/bin/node && \
+    rm -f /opt/conda/bin/npm && ln -s /usr/local/bin/npm /opt/conda/bin/npm
+
+# Install global npm packages
+RUN npm install -g npm yarn typescript webpack node-gyp && \
+    npm update -g
+
+# Add your clean-up script if needed
+# RUN clean-layer.sh
